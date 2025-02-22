@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Font Families -->
+    <style name="TextMedium">
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextLarge">
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingMultiplier">1.5</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Label">
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingMultiplier">1.15</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Heading">
+        <item name="android:fontFamily">@font/sora</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PrimaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAppearance">@style/Label</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="StackChip" parent="Widget.Material3.Chip.Assist.Elevated">
+        <item name="chipBackgroundColor">@color/chip_stack_state_color</item>
+        <item name="chipSurfaceColor">@color/chip_stack_state_color</item>
+        <item name="chipStrokeColor">@color/border_default</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

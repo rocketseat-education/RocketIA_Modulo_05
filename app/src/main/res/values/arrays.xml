@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="stacks">
+        <item>React Native</item>
+        <item>Kotlin</item>
+        <item>C#</item>
+        <item>PHP</item>
+        <item>DevOps</item>
+        <item>Full-Stack</item>
+        <item>Java</item>
+        <item>Python</item>
+        <item>React</item>
+        <item>Node.JS</item>
+        <item>Swift</item>
+        <item>IA</item>
+        <item>Go</item>
+    </string-array>
+</resources>
