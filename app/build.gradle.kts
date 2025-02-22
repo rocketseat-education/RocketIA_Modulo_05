@@ -43,6 +43,7 @@ android {
 
 dependencies {
     implementation(libs.material)
+    implementation(libs.lottie)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
