@@ -39,5 +39,6 @@
         <item name="chipSurfaceColor">@color/chip_stack_state_color</item>
         <item name="chipStrokeColor">@color/border_default</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:checkable">true</item>
     </style>
 </resources>
