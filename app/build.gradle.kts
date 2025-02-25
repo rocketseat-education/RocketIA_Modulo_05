@@ -44,6 +44,7 @@ android {
 dependencies {
     implementation(libs.material)
     implementation(libs.lottie)
+    implementation(libs.bundles.navigation)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

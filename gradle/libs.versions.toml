@@ -13,6 +13,7 @@ material = "1.12.0"
 generativeai = "0.9.0"
 googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 lottie = "6.6.2"
+navigation = "2.8.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,6 +34,11 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 generativeai = { group = "com.google.ai.client.generativeai", name = "generativeai", version.ref = "generativeai" }
 material = { module = "com.google.android.material:material", version.ref = "material"}
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+
+[bundles]
+navigation = ["navigation-ui-ktx", "navigation-fragment-ktx"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
