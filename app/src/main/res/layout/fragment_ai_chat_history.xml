@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/md_16dp"
-    tools:context=".ChooseStackFragment">
+    tools:context=".AIChatHistoryFragment">
 
     <LinearLayout
         android:id="@+id/llAppName"
@@ -28,32 +28,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/sm_8dp"
             android:text="@string/app_name"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
-    <TextView
-        style="@style/TextLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/md_16dp"
-        android:text="@string/qual_area_de_programacao_vamos_estudar_juntos"
-        android:textColor="@color/text_body"
-        app:layout_constraintBottom_toTopOf="@id/flwChooseStackOptions"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
     <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/flwChooseStackOptions"
+        android:id="@+id/flwFilterStackOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/md_16dp"
         app:flow_horizontalGap="@dimen/sm_8dp"
         app:constraint_referenced_ids="chpReactNative, chpIA,
         chpGo, chpKotlin, chpCSharp, chpPHP, chpDevOps, chpFullStack,
          chpJava, chpPyton, chpReact, chpNodeJS, chpSwift"
-        app:flow_wrapMode="chain"
-        app:layout_constraintBottom_toTopOf="@id/btnChooseStackConfirm"
-        app:layout_constraintTop_toBottomOf="@id/llAppName" />
+        app:layout_constraintTop_toBottomOf="@id/llAppName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chpReactNative"
@@ -172,14 +162,15 @@
         app:chipIcon="@drawable/ic_swift"
         tools:ignore="MissingConstraints"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnChooseStackConfirm"
-        style="@style/PrimaryButton"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcHistoryAIChat"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/xlg_54dp"
-        android:text="@string/confirmar"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flwFilterStackOptions"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/sm_8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
