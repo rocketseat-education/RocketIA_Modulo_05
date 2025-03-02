@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/md_16dp"
-    tools:context=".AIChatFragment">
+    tools:context=".ui.AIChatFragment">
 
     <LinearLayout
         android:id="@+id/llAppName"

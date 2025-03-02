@@ -1,4 +1,4 @@
-package com.rocketseat.rocketia
+package com.rocketseat.rocketia.ui
 
 /**
  * A sealed hierarchy describing the state of the text generation.
