@@ -1,16 +1,11 @@
-package com.rocketseat.rocketia.data.api
+package com.rocketseat.rocketia.data.remote.api
 
 import com.google.ai.client.generativeai.GenerativeModel
 import com.rocketseat.rocketia.BuildConfig
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 private const val GENERATIVE_MODEL_NAME = "gemini-1.5-flash"
 
-class AIGeminiAPIServiceImp(
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-): AIAPIService {
+class AIGeminiAPIServiceImpl : AIAPIService {
 
     private val generativeModel = GenerativeModel(
         modelName = GENERATIVE_MODEL_NAME,
@@ -18,18 +13,16 @@ class AIGeminiAPIServiceImp(
     )
 
     override suspend fun sendPrompt(stack: String, question: String): String? =
-        withContext(ioDispatcher) {
-            try {
-                val customPrompt = generatePrompt(stack, question)
+        try {
+            val customPrompt = generatePrompt(stack, question)
 
-                val response = generativeModel.generateContent(
-                    prompt = customPrompt
-                )
+            val response = generativeModel.generateContent(
+                prompt = customPrompt
+            )
 
-                response.text
-            } catch (_: Exception) {
-                null
-            }
+            response.text
+        } catch (_: Exception) {
+            null
         }
 
     private fun generatePrompt(stack: String, question: String): String =
