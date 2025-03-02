@@ -8,6 +8,7 @@ import com.rocketseat.rocketia.domain.model.AIChatText
 import com.rocketseat.rocketia.domain.model.AIChatTextType
 import com.rocketseat.rocketia.domain.repository.AIChatRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
 class AIChatRepositoryImpl(
@@ -15,24 +16,32 @@ class AIChatRepositoryImpl(
     private val aiChatRemoteDataSource: AIChatRemoteDataSource
 ): AIChatRepository {
 
-    override val selectedStack: Flow<String>
+    override val selectedStack: Flow<String?>
         get() = aiChatLocalDataSource.selectedStack
-
-    override val firstLaunch: Flow<Boolean>
-        get() = aiChatLocalDataSource.firstLaunch
 
     override val aiChatBySelectedStack: Flow<List<AIChatText>>
         get() = aiChatLocalDataSource.aiCurrentChatBySelectedStack.map { currentChatEntity ->
             currentChatEntity.toDomain()
         }
 
-    override suspend fun sendUserQuestion(question: String, stack: String) {
-        val answer = aiChatRemoteDataSource.sendPrompt(question = question, stack = stack)
+    override suspend fun sendUserQuestion(question: String) {
+        val currentSelectedStack = selectedStack.firstOrNull().orEmpty()
+
+        val answer = aiChatRemoteDataSource.sendPrompt(
+            question = question,
+            stack = currentSelectedStack
+        )
 
         answer?.let {
             aiChatLocalDataSource.insertAIChatConversation(
-                question = createUserQuestionEntity(question = question, stack = stack),
-                answer = createAIAnswerEntity(answer = answer, stack = stack)
+                question = createUserQuestionEntity(
+                    question = question,
+                    stack = currentSelectedStack
+                ),
+                answer = createAIAnswerEntity(
+                    answer = answer,
+                    stack = currentSelectedStack
+                )
             )
         }
     }
@@ -55,9 +64,5 @@ class AIChatRepositoryImpl(
 
     override suspend fun changeStack(stack: String) {
         aiChatLocalDataSource.changeSelectedStack(stack)
-    }
-
-    override suspend fun changeFirstLaunch() {
-        aiChatLocalDataSource.changeFirstLaunch()
     }
 }
