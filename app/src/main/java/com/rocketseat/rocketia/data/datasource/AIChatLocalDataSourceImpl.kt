@@ -1,18 +1,25 @@
 package com.rocketseat.rocketia.data.datasource
 
+import com.rocketseat.rocketia.data.local.database.AIChatHistoryDao
 import com.rocketseat.rocketia.data.local.database.AIChatTextEntity
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
-class AIChatLocalDataSourceImpl: AIChatLocalDataSource {
+class AIChatLocalDataSourceImpl(
+    private val aiChatHistoryDao: AIChatHistoryDao
+): AIChatLocalDataSource {
 
     override val aiCurrentChatBySelectedStack: Flow<List<AIChatTextEntity>>
-        get() = TODO("Not yet implemented")
+        get() = flow {
+            val selectedStack = ""
+            aiChatHistoryDao.getAllByStack(selectedStack)
+        }
 
     override suspend fun insertAIChatConversation(
         question: AIChatTextEntity,
         answer: AIChatTextEntity
     ) {
-        TODO("Not yet implemented")
+        aiChatHistoryDao.insetAll(question, answer)
     }
 
     override val selectedStack: Flow<String>
