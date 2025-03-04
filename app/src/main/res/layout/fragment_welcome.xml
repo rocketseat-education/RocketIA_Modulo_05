@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/md_16dp"
-    tools:context=".ui.WelcomeFragment">
+    tools:context=".ui.fragment.WelcomeFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="@dimen/huge_256dp"
