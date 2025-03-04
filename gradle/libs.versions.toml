@@ -1,5 +1,6 @@
 [versions]
 agp = "8.8.1"
+koinAndroid = "4.0.2"
 kotlin = "2.1.10"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -22,6 +23,7 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 generativeai = { group = "com.google.ai.client.generativeai", name = "generativeai", version.ref = "generativeai" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 material = { module = "com.google.android.material:material", version.ref = "material"}
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
