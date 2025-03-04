@@ -14,9 +14,16 @@ import com.rocketseat.rocketia.data.remote.api.AIAPIService
 import com.rocketseat.rocketia.data.remote.api.AIGeminiAPIServiceImpl
 import com.rocketseat.rocketia.data.repository.AIChatRepositoryImpl
 import com.rocketseat.rocketia.domain.repository.AIChatRepository
+import com.rocketseat.rocketia.domain.usecase.ChangeStackUseCase
+import com.rocketseat.rocketia.domain.usecase.CheckHasSelectedStackUseCase
+import com.rocketseat.rocketia.domain.usecase.GetAIChatBySelectedStackUseCase
+import com.rocketseat.rocketia.domain.usecase.GetSelectedStackUseCase
+import com.rocketseat.rocketia.domain.usecase.SendUserQuestionUseCase
+import com.rocketseat.rocketia.ui.viewmodel.WelcomeViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidApplication
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -45,9 +52,13 @@ val dataModule = module {
 }
 
 val domainModule = module {
-
+    factory { ChangeStackUseCase(get()) }
+    factory { CheckHasSelectedStackUseCase(get()) }
+    factory { GetAIChatBySelectedStackUseCase(get()) }
+    factory { GetSelectedStackUseCase(get()) }
+    factory { SendUserQuestionUseCase(get()) }
 }
 
 val uiModule = module {
-
+    viewModelOf(::WelcomeViewModel)
 }

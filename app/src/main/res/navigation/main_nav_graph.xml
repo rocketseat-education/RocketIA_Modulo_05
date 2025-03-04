@@ -11,7 +11,7 @@
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
-            android:id="@+id/action_welcomeFragment_to_chooseStackFragment2"
+            android:id="@+id/action_welcomeFragment_to_chooseStackFragment"
             app:destination="@id/chooseStackFragment" />
         <action
             android:id="@+id/action_welcomeFragment_to_homeFragment"
@@ -24,7 +24,7 @@
         android:label="fragment_choose_stack"
         tools:layout="@layout/fragment_choose_stack" >
         <action
-            android:id="@+id/action_chooseStackFragment2_to_homeFragment2"
+            android:id="@+id/action_chooseStackFragment2_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
     
@@ -34,7 +34,7 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_chooseStackFragment2"
+            android:id="@+id/action_homeFragment_to_chooseStackFragment"
             app:destination="@id/chooseStackFragment" />
     </fragment>
 </navigation>
