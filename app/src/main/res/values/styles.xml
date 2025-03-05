@@ -35,6 +35,10 @@
     </style>
 
     <style name="StackChip" parent="Widget.Material3.Chip.Assist.Elevated">
+        <item name="chipMinHeight">@dimen/xxmd_36dp</item>
+        <item name="chipStartPadding">@dimen/sm_8dp</item>
+        <item name="chipEndPadding">@dimen/sm_8dp</item>
+        <item name="android:textStyle">bold</item>
         <item name="chipBackgroundColor">@color/chip_stack_state_color</item>
         <item name="chipSurfaceColor">@color/chip_stack_state_color</item>
         <item name="chipStrokeColor">@color/border_default</item>
