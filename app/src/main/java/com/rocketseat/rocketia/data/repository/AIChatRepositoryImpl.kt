@@ -10,8 +10,9 @@ import com.rocketseat.rocketia.domain.repository.AIChatRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class AIChatRepositoryImpl(
+class AIChatRepositoryImpl @Inject constructor(
     private val aiChatLocalDataSource: AIChatLocalDataSource,
     private val aiChatRemoteDataSource: AIChatRemoteDataSource
 ): AIChatRepository {

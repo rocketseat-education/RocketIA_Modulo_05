@@ -1,9 +1,9 @@
 package com.rocketseat.rocketia.domain.usecase
 
-import com.rocketseat.rocketia.domain.model.AIChatTextType
 import com.rocketseat.rocketia.domain.repository.AIChatRepository
+import javax.inject.Inject
 
-class ChangeStackUseCase(
+class ChangeStackUseCase @Inject constructor(
     private val repository: AIChatRepository
 ) {
 

@@ -15,9 +15,15 @@ import com.rocketseat.rocketia.data.remote.api.AIAPIService
 import com.rocketseat.rocketia.data.remote.api.AIGeminiAPIServiceImpl
 import com.rocketseat.rocketia.data.repository.AIChatRepositoryImpl
 import com.rocketseat.rocketia.domain.repository.AIChatRepository
+import com.rocketseat.rocketia.domain.usecase.ChangeStackUseCase
+import com.rocketseat.rocketia.domain.usecase.CheckHasSelectedStackUseCase
+import com.rocketseat.rocketia.domain.usecase.GetAIChatBySelectedStackUseCase
+import com.rocketseat.rocketia.domain.usecase.GetSelectedStackUseCase
+import com.rocketseat.rocketia.domain.usecase.SendUserQuestionUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
@@ -99,3 +105,43 @@ object DataModule {
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class IODispatcher
+
+@Module
+@InstallIn(ViewModelComponent::class)
+object DomainModule {
+
+    @Provides
+    fun provideChangeStackUseCase(
+        aiChatRepository: AIChatRepository
+    ): ChangeStackUseCase = ChangeStackUseCase(
+        repository = aiChatRepository
+    )
+
+    @Provides
+    fun provideCheckHasSelectedStackUseCase(
+        aiChatRepository: AIChatRepository
+    ): CheckHasSelectedStackUseCase = CheckHasSelectedStackUseCase(
+        repository = aiChatRepository
+    )
+
+    @Provides
+    fun provideGetAIChatBySelectedStackUseCase(
+        aiChatRepository: AIChatRepository
+    ): GetAIChatBySelectedStackUseCase = GetAIChatBySelectedStackUseCase(
+        repository = aiChatRepository
+    )
+
+    @Provides
+    fun provideGetSelectedStackUseCase(
+        aiChatRepository: AIChatRepository
+    ): GetSelectedStackUseCase = GetSelectedStackUseCase(
+        repository = aiChatRepository
+    )
+
+    @Provides
+    fun provideSendUserQuestionUseCase(
+        aiChatRepository: AIChatRepository
+    ): SendUserQuestionUseCase = SendUserQuestionUseCase(
+        repository = aiChatRepository
+    )
+}

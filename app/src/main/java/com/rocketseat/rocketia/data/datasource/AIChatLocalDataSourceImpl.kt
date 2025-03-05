@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AIChatLocalDataSourceImpl(
+class AIChatLocalDataSourceImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val aiChatHistoryDao: AIChatHistoryDao,
     private val userSettingsPreferences: UserSettingsPreferences
