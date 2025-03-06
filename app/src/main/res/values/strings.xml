@@ -31,4 +31,5 @@
     <string name="react">React</string>
     <string name="node_js">Node.JS</string>
     <string name="swift">Swift</string>
+    <string name="campo_obrigatorio">Campo obrigatório.</string>
 </resources>

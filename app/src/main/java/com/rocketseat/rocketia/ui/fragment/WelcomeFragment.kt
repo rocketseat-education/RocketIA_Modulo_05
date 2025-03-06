@@ -18,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WelcomeFragment : Fragment() {
 
-     private val viewModel: WelcomeViewModel by viewModel()
+    private val viewModel: WelcomeViewModel by viewModel()
 
     private var _binding: FragmentWelcomeBinding? = null
     private val binding get() = _binding!!
@@ -46,8 +46,8 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
                     uiState.hasSelectedStack?.let { hasSelectedStack ->
                         if (hasSelectedStack)
