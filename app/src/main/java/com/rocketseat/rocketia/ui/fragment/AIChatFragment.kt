@@ -16,6 +16,7 @@ import com.rocketseat.rocketia.databinding.FragmentAiChatBinding
 import com.rocketseat.rocketia.ui.viewmodel.AIChatViewModel
 import kotlinx.coroutines.launch
 import com.rocketseat.rocketia.R
+import com.rocketseat.rocketia.ui.adapter.AIChatAdapter
 import com.rocketseat.rocketia.ui.event.AIChatEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -48,6 +49,8 @@ class AIChatFragment : Fragment() {
             ibUserSettings.setOnClickListener {
                 userSettingsPopMenu.show()
             }
+
+            binding.rvStudyAIChat.adapter = AIChatAdapter()
 
             tietAIQuestion.doOnTextChanged { _, _, _, _, ->
                 if(tilAIQuestion.error != null)
@@ -88,11 +91,10 @@ class AIChatFragment : Fragment() {
                 }
                 launch {
                     viewModel.aiChatBySelectStack.collect { aiChatBySelectStack ->
-                        Toast.makeText(
-                            requireContext(),
-                            "${aiChatBySelectStack.size}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        val aiChatAdapter = binding.rvStudyAIChat.adapter as? AIChatAdapter
+                        aiChatAdapter?.apply {
+                            submitList(aiChatBySelectStack)
+                        }
                     }
                 }
             }

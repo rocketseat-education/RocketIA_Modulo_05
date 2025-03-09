@@ -9,6 +9,7 @@ import com.rocketseat.rocketia.R
 import com.rocketseat.rocketia.databinding.ItemAiChatBalloonBinding
 import com.rocketseat.rocketia.databinding.ItemUserChatBalloonBinding
 import com.rocketseat.rocketia.domain.model.AIChatText
+import io.noties.markwon.Markwon
 
 class AIChatAdapter: ListAdapter<AIChatText, AIChatAdapter.AIChatViewHolder>(
     AIChatTextDiffCallback()
@@ -22,7 +23,8 @@ class AIChatAdapter: ListAdapter<AIChatText, AIChatAdapter.AIChatViewHolder>(
 
         fun bindAnswer(answer: String) {
             with(binding as ItemAiChatBalloonBinding) {
-                tvIAAnswer.text = answer
+                val markwon = Markwon.create(binding.root.context)
+                markwon.setMarkdown(tvIAAnswer, answer)
             }
         }
     }
