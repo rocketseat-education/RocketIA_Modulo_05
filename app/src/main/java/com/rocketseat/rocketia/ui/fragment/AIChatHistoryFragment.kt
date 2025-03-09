@@ -8,9 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.chip.Chip
 import com.rocketseat.rocketia.R
+import com.rocketseat.rocketia.databinding.FragmentAiChatBinding
 import com.rocketseat.rocketia.databinding.FragmentAiChatHistoryBinding
+import com.rocketseat.rocketia.databinding.FragmentChooseStackBinding
+import com.rocketseat.rocketia.ui.adapter.AIChatAdapter
+import com.rocketseat.rocketia.ui.event.AIChatHistoryEvent
+import com.rocketseat.rocketia.ui.event.ChooseStackUiEvent
 import com.rocketseat.rocketia.ui.viewmodel.AIChatHistoryViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -35,14 +42,87 @@ class AIChatHistoryFragment : Fragment() {
         setupObservers()
 
         with(binding) {
+            setupStackChips()
 
+            binding.rvHistoryAIChat.adapter = AIChatAdapter()
         }
     }
 
     private fun setupObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.selectedStack.collect { selectedStack ->
+                        selectedStack?.let {
+                            val selectedStackChipId = binding.getStackChipId(selectedStack)
+                            selectedStackChipId?.let {
+                                viewModel.onEvent(
+                                    AIChatHistoryEvent.SelectStack(
+                                        selectedStackName = selectedStack,
+                                        selectedStackChipId = selectedStackChipId
+                                    )
+                                )
+                            }
+                        }
+                    }
+                }
 
+                launch {
+                    viewModel.selectedStackChipId.collect { selectedStackChipId ->
+                        selectedStackChipId?.let {
+                            binding.changeSelectedStack(selectedStackChipId)
+                        }
+                    }
+                }
+                launch {
+                    viewModel.aiChatHistoryBySelectedStack.collect { aiChatHistoryBySelectedStack ->
+                        val aiChatAdapter = binding.rvHistoryAIChat.adapter as? AIChatAdapter
+                        aiChatAdapter?.apply {
+                            submitList(aiChatHistoryBySelectedStack)
+
+                            binding.rvHistoryAIChat.smoothScrollToPosition(0)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun FragmentAiChatHistoryBinding.getStackChipId(stackName: String): Int? =
+        flwFilterStackOptions.referencedIds.find { stackChipId ->
+            val stackChip = root.findViewById<Chip>(stackChipId)
+
+            stackChip.text == stackName
+        }
+
+
+    private fun FragmentAiChatHistoryBinding.setupStackChips() {
+        flwFilterStackOptions.referencedIds.forEach { stackChipId ->
+            val stackChip = root.findViewById<Chip>(stackChipId)
+
+            stackChip.setOnClickListener {
+                viewModel.onEvent(
+                    event = AIChatHistoryEvent.SelectStack(
+                        selectedStackName = stackChip.text.toString(),
+                        selectedStackChipId = stackChipId
+                    )
+                )
+            }
+        }
+    }
+
+    private fun FragmentAiChatHistoryBinding.changeSelectedStack(selectedStackChipId: Int) {
+        flwFilterStackOptions.referencedIds.forEach { stackChipId ->
+            val stackChip = root.findViewById<Chip>(stackChipId)
+
+            stackChip?.apply {
+                setChipStrokeColorResource(
+                    if(stackChip.id == selectedStackChipId)
+                        R.color.white
+                    else
+                        R.color.border_default
+                )
+                isChecked = stackChip.id == selectedStackChipId
             }
         }
     }

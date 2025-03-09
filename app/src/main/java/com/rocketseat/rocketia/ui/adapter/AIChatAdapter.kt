@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -36,6 +37,11 @@ class AIChatAdapter : ListAdapter<AIChatText, AIChatAdapter.AIChatViewHolder>(
                 tvIAAnswer.setOnLongClickListener {
                     val clipData = ClipData.newPlainText(AI_ANSWER_CLIP_DATA_LABEL, answer)
                     clipBoardManager.setPrimaryClip(clipData)
+                    Toast.makeText(
+                        binding.root.context,
+                        AI_ANSWER_CLIP_DATA_LABEL,
+                        Toast.LENGTH_SHORT
+                    ).show()
                     true
                 }
             }
