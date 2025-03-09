@@ -8,4 +8,7 @@ class GetAIChatBySelectedStackUseCase (
     private val repository: AIChatRepository
 ) {
     operator fun invoke(): Flow<List<AIChatText>> = repository.aiChatBySelectedStack
+
+    suspend operator fun invoke(stack: String): List<AIChatText> =
+        repository.getAIChatByStack(stack)
 }

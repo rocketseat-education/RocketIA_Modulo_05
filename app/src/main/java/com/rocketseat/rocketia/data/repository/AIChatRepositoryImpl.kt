@@ -65,4 +65,7 @@ class AIChatRepositoryImpl (
     override suspend fun changeStack(stack: String) {
         aiChatLocalDataSource.changeSelectedStack(stack)
     }
+
+    override suspend fun getAIChatByStack(stack: String): List<AIChatText> =
+        aiChatLocalDataSource.getAIChatByStack(stack).toDomain()
 }

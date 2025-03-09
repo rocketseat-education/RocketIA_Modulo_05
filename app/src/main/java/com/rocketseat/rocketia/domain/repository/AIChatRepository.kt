@@ -1,5 +1,6 @@
 package com.rocketseat.rocketia.domain.repository
 
+import com.rocketseat.rocketia.data.local.database.AIChatTextEntity
 import com.rocketseat.rocketia.domain.model.AIChatText
 import kotlinx.coroutines.flow.Flow
 
@@ -9,4 +10,6 @@ interface AIChatRepository {
 
     suspend fun sendUserQuestion(question: String)
     suspend fun changeStack(stack: String)
+
+    suspend fun getAIChatByStack(stack: String): List<AIChatText>
 }
