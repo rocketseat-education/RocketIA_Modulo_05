@@ -18,6 +18,10 @@ import kotlinx.coroutines.launch
 import com.rocketseat.rocketia.R
 import com.rocketseat.rocketia.ui.adapter.AIChatAdapter
 import com.rocketseat.rocketia.ui.event.AIChatEvent
+import com.rocketseat.rocketia.ui.extension.gone
+import com.rocketseat.rocketia.ui.extension.hideKeyboard
+import com.rocketseat.rocketia.ui.extension.visible
+import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AIChatFragment : Fragment() {
@@ -41,6 +45,10 @@ class AIChatFragment : Fragment() {
         setupObservers()
 
         with(binding) {
+            clAIChatContainer.setOnClickListener {
+                clearQuestionTextInput()
+            }
+
             val userSettingsPopMenu = PopupMenu(
                 requireContext(),
                 ibUserSettings,
@@ -60,11 +68,15 @@ class AIChatFragment : Fragment() {
             btnSendAIQuestion.setOnClickListener {
                 val questionText = tietAIQuestion.text.toString()
                 if (questionText.isNotEmpty()) {
+                    showLoadingAIChat()
+
                     viewModel.onEvent(
                         AIChatEvent.SendUserQuestionToAI(
                             question = questionText
                         )
                     )
+
+                    clearQuestionTextInput()
                 } else {
                     tietAIQuestion.error = getString(R.string.campo_obrigatorio)
                 }
@@ -94,6 +106,10 @@ class AIChatFragment : Fragment() {
                         val aiChatAdapter = binding.rvStudyAIChat.adapter as? AIChatAdapter
                         aiChatAdapter?.apply {
                             submitList(aiChatBySelectStack)
+
+                            binding.rvStudyAIChat.smoothScrollToPosition(0)
+                            delay(200)
+                            binding.showLoadedAIChat()
                         }
                     }
                 }
@@ -116,6 +132,22 @@ class AIChatFragment : Fragment() {
                 else -> false
             }
         }
+    }
+
+    private fun FragmentAiChatBinding.clearQuestionTextInput() {
+        tilAIQuestion.clearFocus()
+        tietAIQuestion.text = null
+        this.root.hideKeyboard()
+    }
+
+    private fun FragmentAiChatBinding.showLoadingAIChat() {
+        pbAIChatLoading.visible()
+        rvStudyAIChat.gone()
+    }
+
+    private fun FragmentAiChatBinding.showLoadedAIChat() {
+        pbAIChatLoading.gone()
+        rvStudyAIChat.visible()
     }
 
     override fun onDestroyView() {
