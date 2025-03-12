@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvUserQuestion"
+    style="@style/TextLarge"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/sm_8dp"
+    android:background="@drawable/bg_user_chat_balloon"
+    android:padding="@dimen/md_16dp"
+    android:textColor="@color/text_body"
+    tools:text="@string/o_que_e_a_classe_context" />

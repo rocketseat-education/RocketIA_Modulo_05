@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">RocketIA</string>
+    <string name="o_seu_assistente_de_estudos_em_programacao">O seu assistente de estudos em programação.</string>
+    <string name="seja_bem_vindo_a_rocketia">Seja bem-vindo(a) à RocketIA!</string>
+    <string name="escolha_uma_area_de_estudos">Escolha uma área de estudos.\nTire suas dúvidas.\nArmazene conhecimentos.</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="qual_area_de_programacao_vamos_estudar_juntos">Qual área de programação vamos estudar juntos?</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="ola_dev">Olá, Dev!\nVamos começar seus estudos sobre %1$s?</string>
+    <string name="o_que_e_a_classe_context">O que é a classe Context?</string>
+    <string name="a_classe_context_e_uma_classe_abstrata_do_android">A classe Context é uma classe abstrata do Android que permite acessar informações globais sobre o ambiente de uma aplicação. Ela é a classe base para Activity, Service e Application.</string>
+    <string name="devo_usar_para_que">Devo usar para quê?</string>
+    <string name="a_classe_context_no_android_e_uma_das_classes_mais_importantes">A classe Context no Android é uma das classes mais importantes e utilizadas no desenvolvimento de aplicativos para a plataforma. Ela fornece acesso a recursos e informações do ambiente do aplicativo, além de permitir a interação com o sistema…</string>
+    <string name="como_evitar_memory_leaks_com_a_classe">Como evitar memory leaks com a classe</string>
+    <string name="qual_a_sua_duvida_sobre">Qual a sua dúvida sobre %1$s?</string>
+    <string name="enviar">Enviar</string>
+    <string name="alterar_stack">Alterar Stack</string>
+    <string name="menu_configuracoes">Configurações</string>
+    <string name="menu_chat">Chat</string>
+    <string name="menu_historico">Histórico</string>
+    <string name="react_native">React Native</string>
+    <string name="ia">IA</string>
+    <string name="go">Go</string>
+    <string name="kotlin">Kotlin</string>
+    <string name="csharp">C#</string>
+    <string name="php">PHP</string>
+    <string name="devops">DevOps</string>
+    <string name="full_stack">Full-Stack</string>
+    <string name="java">Java</string>
+    <string name="python">Python</string>
+    <string name="react">React</string>
+    <string name="node_js">Node.JS</string>
+    <string name="swift">Swift</string>
+    <string name="campo_obrigatorio">Campo obrigatório.</string>
+</resources>

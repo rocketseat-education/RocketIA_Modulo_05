@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.fragment.HomeFragment">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fcvHomeContainer"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bnvHomeMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/home_nav_graph" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnvHomeMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemActiveIndicatorStyle="@style/Widget.Design.BottomNavigationView"
+        app:backgroundTint="@color/background_elevated"
+        app:itemTextAppearanceActive="@style/TextLarge"
+        app:itemTextAppearanceInactive="@style/TextLarge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemIconTint="@color/home_menu_option_state_color"
+        app:itemTextColor="@color/home_menu_option_state_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/home_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

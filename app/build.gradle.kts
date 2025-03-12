@@ -1,9 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
@@ -43,22 +40,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.material)
-    implementation(libs.lottie)
-    implementation(libs.bundles.navigation)
-    implementation(libs.bundles.room)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.koin.android)
-    implementation(libs.dagger.hilt.android)
-    ksp(libs.dagger.hilt.compiler)
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.markwon)
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.generativeai)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(project(":ui"))
+    implementation(project(":core:di"))
 }

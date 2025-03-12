@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin) apply false
     alias(libs.plugins.dagger.hilt.android) apply false
     alias(libs.plugins.ksp)
+    alias(libs.plugins.android.library) apply false
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvAIAnswer"
+    style="@style/TextLarge"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/sm_8dp"
+    android:background="@drawable/bg_ai_chat_balloon"
+    android:padding="@dimen/md_16dp"
+    android:textColor="@color/text_invert"
+    tools:text="@string/a_classe_context_e_uma_classe_abstrata_do_android" />

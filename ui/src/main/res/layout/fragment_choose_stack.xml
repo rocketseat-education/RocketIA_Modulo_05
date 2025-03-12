@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/md_16dp"
+    tools:context=".ui.fragment.ChooseStackFragment">
+
+    <LinearLayout
+        android:id="@+id/llAppName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/xxmd_36dp"
+            android:layout_height="@dimen/xxmd_36dp"
+            android:src="@drawable/img_bubble_ia" />
+
+        <TextView
+            style="@style/TextLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sm_8dp"
+            android:text="@string/app_name"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/TextLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/md_16dp"
+        android:text="@string/qual_area_de_programacao_vamos_estudar_juntos"
+        android:textColor="@color/text_body"
+        app:layout_constraintBottom_toTopOf="@+id/flwChooseStackOptions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flwChooseStackOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flow_wrapMode="chain"
+        app:flow_horizontalGap="@dimen/sm_8dp"
+        app:constraint_referenced_ids="chpReactNative, chpIA, chpGo, chpKotlin, chpCSharp, chpPhp, chpDevOps, chpFullStack, chpJava, chpPython, chpReact, chpNodeJS, chpSwift"
+        app:layout_constraintBottom_toTopOf="@+id/btnChooseStackConfirm"
+        app:layout_constraintTop_toBottomOf="@+id/llAppName" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpReactNative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/react_native"
+        app:chipIcon="@drawable/ic_react_native"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpIA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/ia"
+        app:chipIcon="@drawable/ic_ia"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpGo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/go"
+        app:chipIcon="@drawable/ic_go"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpKotlin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/kotlin"
+        app:chipIcon="@drawable/ic_kotlin"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpCSharp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/csharp"
+        app:chipIcon="@drawable/ic_csharp"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpPhp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/php"
+        app:chipIcon="@drawable/ic_php"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpDevOps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/devops"
+        app:chipIcon="@drawable/ic_devops"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpFullStack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/full_stack"
+        app:chipIcon="@drawable/ic_fullstack"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpJava"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/java"
+        app:chipIcon="@drawable/ic_java"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpPython"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/python"
+        app:chipIcon="@drawable/ic_python"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpReact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/react"
+        app:chipIcon="@drawable/ic_react"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpNodeJS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/node_js"
+        app:chipIcon="@drawable/ic_nodejs"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chpSwift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StackChip"
+        android:text="@string/swift"
+        app:chipIcon="@drawable/ic_swift"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnChooseStackConfirm"
+        style="@style/PrimaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/xlg_54dp"
+        android:text="@string/confirmar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

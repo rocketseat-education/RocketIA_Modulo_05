@@ -21,3 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "RocketIA"
 include(":app")
+include(":core")
+include(":core:di")
+include(":ui")
+include(":data")
+include(":domain")

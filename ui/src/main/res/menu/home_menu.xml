@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_ai_chat"
+        android:icon="@drawable/ic_chat"
+        android:title="@string/menu_chat" />
+
+    <item
+        android:id="@+id/action_ai_chat_history"
+        android:icon="@drawable/ic_history"
+        android:title="@string/menu_historico" />
+
+</menu>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.WelcomeFragment">
+
+    <LinearLayout
+        android:id="@+id/llWelcomeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/md_16dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="@dimen/huge_256dp"
+            android:layout_height="@dimen/huge_256dp"
+            app:lottie_autoPlay="true"
+            app:lottie_colorFilter="@color/brand"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/anim_bubble_ia" />
+
+        <TextView
+            style="@style/TextMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/o_seu_assistente_de_estudos_em_programacao"
+            android:textColor="@color/text_span" />
+
+        <TextView
+            style="@style/Heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/md_16dp"
+            android:text="@string/seja_bem_vindo_a_rocketia" />
+
+        <TextView
+            style="@style/TextLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xmd_24dp"
+            android:text="@string/escolha_uma_area_de_estudos"
+            android:textColor="@color/text_body" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnWelcomeStart"
+            style="@style/PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xlg_54dp"
+            android:layout_marginTop="@dimen/xxmd_36dp"
+            android:text="@string/iniciar" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pbWelcomeLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/brand"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
