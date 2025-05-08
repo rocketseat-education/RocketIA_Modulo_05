@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -39,10 +40,18 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        compose = true
     }
 }
 
 dependencies {
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.viewbinding)
+
     implementation(libs.material)
     implementation(libs.lottie)
     implementation(libs.bundles.navigation)
