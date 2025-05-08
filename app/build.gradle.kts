@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.lottie)
     implementation(libs.bundles.navigation)
     implementation(libs.bundles.room)
+    implementation(libs.androidx.ui.android)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.koin.android)

@@ -21,6 +21,7 @@ markwon = "4.6.2"
 
 compose-bom = "2025.04.01"
 compose-compiler = "1.6.10"
+uiAndroid = "1.8.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,7 +45,7 @@ androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version
 markwon = { module = "io.noties.markwon:core", version.ref = "markwon" }
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose-bom" }
+compose-ui = { module = "androidx.compose.ui:ui-android", version.ref = "compose-bom" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling"  }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
