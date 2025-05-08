@@ -54,9 +54,17 @@
             android:id="@+id/btnWelcomeStart"
             style="@style/PrimaryButton"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="@dimen/xlg_54dp"
             android:layout_marginTop="@dimen/xxmd_36dp"
             android:text="@string/iniciar" />
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/composeViewWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxmd_36dp"/>
+
     </LinearLayout>
 
     <ProgressBar
