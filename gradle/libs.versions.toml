@@ -1,27 +1,31 @@
 [versions]
-agp = "8.9.2"
+agp = "8.11.1"
 koinAndroid = "4.0.2"
-kotlin = "2.1.10"
+kotlin = "2.2.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+junitVersion = "1.3.0"
+espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.8.7"
 material = "1.12.0"
 generativeai = "0.9.0"
 googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 lottie = "6.6.2"
 navigation = "2.8.8"
-room = "2.6.1"
-ksp = "2.1.10-1.0.30"
+room = "2.7.2"
+ksp = "2.2.0-2.0.2"
 datastore = "1.1.3"
-dagger-hilt = "2.55"
+dagger-hilt = "2.57"
 recyclerview = "1.4.0"
 markwon = "4.6.2"
 
-compose-bom = "2025.04.01"
+compose-bom = "2025.08.00"
 compose-compiler = "1.6.10"
 uiAndroid = "1.8.1"
+
+mockk = "1.14.5"
+roboeletric = "4.15.1"
+kotlinxCoroutinesTest = "1.10.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +47,10 @@ dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref =
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 markwon = { module = "io.noties.markwon:core", version.ref = "markwon" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+roboeletric = { module = "org.robolectric:robolectric", version.ref = "roboeletric" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
 compose-ui = { module = "androidx.compose.ui:ui" }
