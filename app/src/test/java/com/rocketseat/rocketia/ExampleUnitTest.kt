@@ -1,5 +1,6 @@
 package com.rocketseat.rocketia
 
+import android.widget.Toast
 import com.rocketseat.rocketia.data.datasource.AIChatLocalDataSource
 import com.rocketseat.rocketia.data.datasource.AIChatRemoteDataSource
 import com.rocketseat.rocketia.data.datasource.FakeAIChatLocalDataSourceImpl
@@ -15,12 +16,19 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
+import org.robolectric.shadows.ShadowToast
 
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE)
 class ExampleUnitTest {
 
     // fake: implementação real porém simplificada de uma interface
@@ -68,5 +76,15 @@ class ExampleUnitTest {
 
         coVerify(exactly = 1) { mockAIChatRemoteDataSourceImpl.sendPrompt(any(), any()) }
         coVerify(exactly = 1) { spyAIChatLocalDataSourceImpl.insertAIChatConversation(any(), any()) }
+    }
+
+    // shadow: fake especifico (Roboletric) que substitui um conjunto de classes (framework Android)
+    @Test
+    fun example_shadow() {
+        val context = RuntimeEnvironment.getApplication()
+
+        Toast.makeText(context, "Hello world!", Toast.LENGTH_SHORT).show()
+
+        assertEquals("Hello world!", ShadowToast.getTextOfLatestToast())
     }
 }
