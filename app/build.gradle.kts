@@ -69,7 +69,7 @@ dependencies {
     implementation(libs.generativeai)
 
     testImplementation(libs.mockk)
-    testImplementation(libs.roboeletric)
+    testImplementation(libs.roboletric)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
