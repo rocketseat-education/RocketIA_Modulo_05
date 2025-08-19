@@ -1,6 +1,8 @@
 package com.rocketseat.rocketia
 
 import com.rocketseat.rocketia.data.datasource.AIChatLocalDataSource
+import com.rocketseat.rocketia.data.datasource.AIChatRemoteDataSource
+import com.rocketseat.rocketia.data.datasource.FakeAIChatLocalDataSourceImpl
 import com.rocketseat.rocketia.data.datasource.FakeAIChatRemoteDataSourceImpl
 import com.rocketseat.rocketia.data.local.database.AIChatTextEntity
 import com.rocketseat.rocketia.data.repository.AIChatRepositoryImpl
@@ -8,6 +10,7 @@ import com.rocketseat.rocketia.domain.model.AIChatTextType
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import io.mockk.spyk
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -45,5 +48,25 @@ class ExampleUnitTest {
 
         coVerify(exactly = 1) { stubAIChatLocalDataSourceImpl.getAIChatByStack(stack = "Java") }
         assertEquals(3, result.size)
+    }
+
+    // mock: objeto configurado para retornar valores fixos, possibilitar verificar interações
+    // spy: wrapper sobre um objeto real que registra suas interações
+    @Test
+    fun example_mockk_and_spy() = runTest {
+        val fakeAIChatLocalDataSourceImpl = FakeAIChatLocalDataSourceImpl()
+
+        val mockAIChatRemoteDataSourceImpl = mockk<AIChatRemoteDataSource>(relaxed = true)
+        val spyAIChatLocalDataSourceImpl = spyk<AIChatLocalDataSource>(fakeAIChatLocalDataSourceImpl)
+
+        val testRepository = AIChatRepositoryImpl(
+            aiChatLocalDataSource = spyAIChatLocalDataSourceImpl,
+            aiChatRemoteDataSource = mockAIChatRemoteDataSourceImpl
+        )
+
+        testRepository.sendUserQuestion("question")
+
+        coVerify(exactly = 1) { mockAIChatRemoteDataSourceImpl.sendPrompt(any(), any()) }
+        coVerify(exactly = 1) { spyAIChatLocalDataSourceImpl.insertAIChatConversation(any(), any()) }
     }
 }
