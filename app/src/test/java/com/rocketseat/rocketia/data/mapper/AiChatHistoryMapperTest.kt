@@ -50,4 +50,24 @@ class AiChatHistoryMapperTest {
         // THEN (então...)
         assertEquals("Invalid from value: UNKNOWN", result.message)
     }
+
+    @Test
+    fun `GIVEN AiChatHistoryEntity list WHEN toDomain is called THEN should convert to AIChatText list`() {
+        // GIVEN (dado que...)
+        val aiChatTextEntityList = List(10) { index ->
+            createAIChatTextEntityStub(
+                from = when {
+                    index % 2 == 0 -> AIChatTextType.USER_QUESTION
+                    index % 2 != 0 -> AIChatTextType.AI_ANSWER
+                    else -> null
+                }
+            )
+        }
+
+        // WHEN (quando...)
+        val result = aiChatTextEntityList.toDomain()
+
+        // THEN (então...)
+        assertEquals(aiChatTextEntityList.size, result .size)
+    }
 }
