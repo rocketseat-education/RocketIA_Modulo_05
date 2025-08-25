@@ -109,8 +109,16 @@ class AIChatRepositoryImplTest {
             //GIVEN (dado que...)
             val dummyStack = "Kotlin"
             val dummyChatConversation = listOf(
-                createAIChatTextEntityStub(from = AIChatTextType.USER_QUESTION, text = "question"),
-                createAIChatTextEntityStub(from = AIChatTextType.AI_ANSWER, text = "answer")
+                createAIChatTextEntityStub(
+                    from = AIChatTextType.USER_QUESTION,
+                    stack = dummyStack,
+                    text = "question"
+                ),
+                createAIChatTextEntityStub(
+                    from = AIChatTextType.AI_ANSWER,
+                    stack = dummyStack,
+                    text = "answer"
+                )
             )
 
             localDataSource.insertAIChatConversation(
@@ -126,11 +134,32 @@ class AIChatRepositoryImplTest {
         }
 
     @Test
-    fun `GIVEN get chat conversation by stack WHEN is empty THEN should return empty chat conversation `() {
+    fun `GIVEN get chat conversation by stack WHEN is empty THEN should return empty chat conversation `() = runTest {
+        setup()
+
         //GIVEN (dado que...)
+        val dummyStack = "Swift"
+        val dummyChatConversation = listOf(
+            createAIChatTextEntityStub(
+                from = AIChatTextType.USER_QUESTION,
+                stack = "Kotlin",
+                text = "question"
+            ),
+            createAIChatTextEntityStub(
+                from = AIChatTextType.AI_ANSWER,
+                stack = "Kotlin",
+                text = "answer"
+            )
+        )
+
+        localDataSource.insertAIChatConversation(
+            question = dummyChatConversation[0],
+            answer = dummyChatConversation[1]
+        )
 
         //WHEN (quando...)
-
+        val result = repository.getAIChatByStack(dummyStack)
         // THEN (então...)
+        assertEquals(0, result.size)
     }
 }
