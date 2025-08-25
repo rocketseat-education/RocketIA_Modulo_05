@@ -1,21 +1,16 @@
 package com.rocketseat.rocketia.data.datasource
 
 class FakeAIChatRemoteDataSourceImpl(
-    private val validStacks: List<String>
+    private val shouldEmitError: Boolean = false,
+    private val shouldEmitNull: Boolean = false
 ) : AIChatRemoteDataSource {
-
-    private var shouldEmitError: Boolean = false
-
-    fun emitError(shouldEmitError: Boolean) {
-        this.shouldEmitError = shouldEmitError
-    }
 
     override suspend fun sendPrompt(stack: String, question: String): String? {
         return if (shouldEmitError)
             throw Exception("HTTP error exception")
-        else if (validStacks.contains(stack))
-            "Valid answer"
-        else
+        else if (shouldEmitNull)
             null
+        else
+            "answer for $question from stack $stack"
     }
 }

@@ -36,7 +36,7 @@ class ExampleUnitTest {
     // stub: objeto que retorna valores fixos, SEM verificar interações
     @Test
     fun example_fake_dummy_and_stub() = runTest {
-        val fakeAIChatRemoteDataSourceImpl = FakeAIChatRemoteDataSourceImpl(validStacks = listOf("Kotlin"))
+        val fakeAIChatRemoteDataSourceImpl = FakeAIChatRemoteDataSourceImpl()
         val dummyAIChatTextEntity = AIChatTextEntity(
             from = AIChatTextType.USER_QUESTION.name,
             stack = "stack",
