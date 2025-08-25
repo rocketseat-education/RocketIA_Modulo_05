@@ -6,6 +6,7 @@ import com.rocketseat.rocketia.data.datasource.FakeAIChatLocalDataSourceImpl
 import com.rocketseat.rocketia.data.datasource.FakeAIChatRemoteDataSourceImpl
 import com.rocketseat.rocketia.domain.repository.AIChatRepository
 import io.mockk.spyk
+import org.junit.Test
 
 class AIChatRepositoryImplTest {
 
@@ -34,5 +35,30 @@ class AIChatRepositoryImplTest {
             aiChatLocalDataSource = localDataSource,
             aiChatRemoteDataSource = remoteDataSource
         )
+    }
+
+    @Test
+    fun `GIVEN AI remote answer is null WHEN send user THEN should not insert chat conversation`() {
+
+    }
+
+    @Test
+    fun `GIVEN AI remote answer is not null WHEN send user THEN should not insert chat conversation`() {
+
+    }
+
+    @Test
+    fun `GIVEN change stack WHEN executed THEN should change selected stack`() {
+
+    }
+
+    @Test
+    fun `GIVEN get chat conversation by stack WHEN is not empty THEN should return chat conversation by stack`() {
+
+    }
+
+    @Test
+    fun `GIVEN get chat conversation by stack WHEN is empty THEN should return empty chat conversation `() {
+
     }
 }
