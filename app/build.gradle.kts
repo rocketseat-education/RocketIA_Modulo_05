@@ -11,6 +11,12 @@ android {
     namespace = "com.rocketseat.rocketia"
     compileSdk = 35
 
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1,LICENSE.md,LICENSE-notice.md}"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.rocketseat.rocketia"
         minSdk = 24
@@ -73,6 +79,12 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)
     testImplementation(libs.turbine)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.fragment.testing)
+    androidTestImplementation(libs.koin.test.junit4)
+    androidTestImplementation(libs.mockk.android)
+
+    debugImplementation(libs.androidx.fragment.testing)
 }
