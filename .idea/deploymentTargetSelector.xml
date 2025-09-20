@@ -11,6 +11,9 @@
       <SelectionState runConfigName="given_launch_fragment_when_displayed_then_all_stack_chips_should_be_displayed()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="given_user_select_a_stack_when_chip_is_clicked_then_trigger_an_event_and_only_check_the_selected_chip()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>
