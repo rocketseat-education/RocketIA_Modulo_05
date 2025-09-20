@@ -1,6 +1,13 @@
 package com.rocketseat.rocketia.ui.fragment
 
+import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.rocketseat.rocketia.R
+import com.rocketseat.rocketia.ui.utils.withFlowContaining
 import com.rocketseat.rocketia.ui.viewmodel.AIChatHistoryViewModel
 import io.mockk.mockk
 import org.junit.Test
@@ -11,9 +18,39 @@ class AIChatHistoryFragmentTest {
 
     private val viewModel: AIChatHistoryViewModel = mockk(relaxed = true)
 
-    @Test
-    fun given_lunch_fragment_when_displayed_then_all_stack_chips_should_be_displayed() {
+    private val availableStackChipIds = listOf(
+        R.id.chpReactNative,
+        R.id.chpIA,
+        R.id.chpGo,
+        R.id.chpKotlin,
+        R.id.chpCSharp,
+        R.id.chpPHP,
+        R.id.chpDevOps,
+        R.id.chpFullStack,
+        R.id.chpJava,
+        R.id.chpPyton,
+        R.id.chpReact,
+        R.id.chpNodeJS,
+        R.id.chpSwift
+    )
 
+    private fun launchTargetFragment() =
+        launchFragmentInContainer<AIChatHistoryFragment>(themeResId = R.style.Theme_RocketIA)
+
+    @Test
+    fun given_launch_fragment_when_displayed_then_all_stack_chips_should_be_displayed() {
+        // GIVEN
+        // WHEN
+        launchTargetFragment()
+
+        // THEN
+        onView(withId(R.id.flwFilterStackOptions)).check(matches(isDisplayed()))
+        onView(withId(R.id.flwFilterStackOptions))
+            .check(
+                matches(
+                    withFlowContaining(*availableStackChipIds.toIntArray())
+                )
+            )
     }
 
     @Test

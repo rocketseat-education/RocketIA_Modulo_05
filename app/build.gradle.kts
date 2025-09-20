@@ -86,5 +86,5 @@ dependencies {
     androidTestImplementation(libs.koin.test.junit4)
     androidTestImplementation(libs.mockk.android)
 
-    debugImplementation(libs.androidx.fragment.testing)
+    debugImplementation(libs.androidx.fragment.testing.manifest)
 }
