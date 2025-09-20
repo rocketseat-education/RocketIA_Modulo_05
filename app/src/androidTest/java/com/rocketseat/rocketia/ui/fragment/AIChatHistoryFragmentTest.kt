@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.rocketseat.rocketia.R
 import com.rocketseat.rocketia.domain.model.AIChatText
@@ -124,6 +125,26 @@ class AIChatHistoryFragmentTest {
 
     @Test
     fun given_user_select_a_stack_with_conversation_when_conversation_is_received_then_should_show_all_the_questions_and_answers() {
+        //GIVEN
+        val dummyQuestion = "question"
+        val dummyAnswer = "answer"
+        val expectedConversation = listOf(
+            AIChatText.UserQuestion(question = dummyQuestion),
+            AIChatText.AIAnswer(answer = dummyAnswer)
+        )
 
+        val scenario = launchTargetFragment()
+        scenario.moveToState(Lifecycle.State.RESUMED)
+
+        //WHEN
+        scenario.onFragment { fragment ->
+            fragment.requireActivity().runOnUiThread {
+                aiChatHistoryBySelectedStackStub.value = expectedConversation
+            }
+        }
+
+        //THEN
+        onView(withText(dummyQuestion)).check(matches(isDisplayed()))
+        onView(withText(dummyAnswer)).check(matches(isDisplayed()))
     }
 }
