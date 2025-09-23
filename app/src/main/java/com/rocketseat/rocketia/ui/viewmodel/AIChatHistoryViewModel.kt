@@ -20,43 +20,31 @@ class AIChatHistoryViewModel(
 ) : ViewModel() {
 
     val selectedStack: StateFlow<String?> = getSelectedStackUseCase().stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5_000),
-        null
+        viewModelScope, SharingStarted.WhileSubscribed(5_000), null
     )
 
     private val _selectedStackChipId = MutableStateFlow<Int?>(null)
     val selectedStackChipId: StateFlow<Int?> = _selectedStackChipId.asStateFlow()
 
-
-    private val _aiChatHistoryBySelectedStack: MutableStateFlow<List<AIChatText>> =
-        MutableStateFlow(emptyList())
-
+    private val _aiChatHistoryBySelectedStack: MutableStateFlow<List<AIChatText>> = MutableStateFlow(emptyList())
     val aiChatHistoryBySelectedStack: StateFlow<List<AIChatText>> = _aiChatHistoryBySelectedStack.asStateFlow()
 
     fun onEvent(event: AIChatHistoryEvent) {
         when (event) {
             is AIChatHistoryEvent.SelectStack -> getAIChatHistoryBySelectedStack(
                 selectedStackName = event.selectedStackName,
-                selectedStackChipId = event.selectedStackChipId
+                event.selectedStackChipId
             )
         }
     }
 
-    private fun getAIChatHistoryBySelectedStack(
-        selectedStackName: String,
-        selectedStackChipId: Int
-    ) {
+    private fun getAIChatHistoryBySelectedStack(selectedStackName: String, selectedStackChipId: Int) {
         viewModelScope.launch {
-            val aiCharBySelectedStack =
-                getAIChatHistoryBySelectedStackUseCase.invoke(stack = selectedStackName)
-            _aiChatHistoryBySelectedStack.update {
-                aiCharBySelectedStack
-            }.also {
-                _selectedStackChipId.update {
-                    selectedStackChipId
-                }
+            val aiChatBySelectedStack = getAIChatHistoryBySelectedStackUseCase(stack = selectedStackName)
+            _aiChatHistoryBySelectedStack.update { aiChatBySelectedStack }.also {
+                _selectedStackChipId.update { selectedStackChipId }
             }
         }
     }
+
 }

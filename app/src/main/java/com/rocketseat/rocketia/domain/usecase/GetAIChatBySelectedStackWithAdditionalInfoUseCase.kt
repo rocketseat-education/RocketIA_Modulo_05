@@ -5,7 +5,7 @@ import com.rocketseat.rocketia.domain.repository.AIChatRepository
 import com.rocketseat.rocketia.domain.util.formatDatetime
 
 data class AIChatTextWithAdditionalInfo(
-    val datetime: String?,
+    val datetimeText: String?,
     val chatText: AIChatText,
     val additionalInfo: AIAdditionalInfo?
 )
@@ -16,7 +16,9 @@ data class AIAdditionalInfo(
 )
 
 interface AIAdditionalInfoRepository {
+
     fun getAdditionalInfo(answer: String): AIAdditionalInfo?
+
 }
 
 class GetAIChatBySelectedStackWithAdditionalInfoUseCase(
@@ -25,25 +27,26 @@ class GetAIChatBySelectedStackWithAdditionalInfoUseCase(
 ) {
 
     suspend operator fun invoke(stack: String): List<AIChatTextWithAdditionalInfo> {
-        return aiChatRepository.getAIChatByStack(stack).map { aiChatText ->
-            when (aiChatText) {
+        return aiChatRepository.getAIChatByStack(stack = stack).map { aIChatText ->
+            when (aIChatText) {
                 is AIChatText.AIAnswer -> {
                     val additionalInfo =
-                        aiAdditionalInfoRepository.getAdditionalInfo(answer = aiChatText.answer)
+                        aiAdditionalInfoRepository.getAdditionalInfo(answer = aIChatText.answer)
                     AIChatTextWithAdditionalInfo(
-                        datetime = additionalInfo?.datetime?.formatDatetime(),
-                        chatText = aiChatText,
+                        datetimeText = additionalInfo?.datetime?.formatDatetime(),
+                        chatText = aIChatText,
                         additionalInfo = additionalInfo
                     )
                 }
                 else -> {
                     AIChatTextWithAdditionalInfo(
-                        datetime = null,
-                        chatText = aiChatText,
+                        datetimeText = null,
+                        chatText = aIChatText,
                         additionalInfo = null
                     )
                 }
             }
         }
     }
+
 }

@@ -10,11 +10,12 @@ import com.rocketseat.rocketia.domain.repository.AIChatRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class AIChatRepositoryImpl (
+class AIChatRepositoryImpl(
     private val aiChatLocalDataSource: AIChatLocalDataSource,
     private val aiChatRemoteDataSource: AIChatRemoteDataSource
-): AIChatRepository {
+) : AIChatRepository {
 
     override val selectedStack: Flow<String?>
         get() = aiChatLocalDataSource.selectedStack
@@ -26,11 +27,8 @@ class AIChatRepositoryImpl (
 
     override suspend fun sendUserQuestion(question: String) {
         val currentSelectedStack = selectedStack.firstOrNull().orEmpty()
-
-        val answer = aiChatRemoteDataSource.sendPrompt(
-            question = question,
-            stack = currentSelectedStack
-        )
+        val answer =
+            aiChatRemoteDataSource.sendPrompt(question = question, stack = currentSelectedStack)
 
         answer?.let {
             aiChatLocalDataSource.insertAIChatConversation(
@@ -38,10 +36,7 @@ class AIChatRepositoryImpl (
                     question = question,
                     stack = currentSelectedStack
                 ),
-                answer = createAIAnswerEntity(
-                    answer = answer,
-                    stack = currentSelectedStack
-                )
+                answer = createAIAnswerEntity(answer = answer, stack = currentSelectedStack),
             )
         }
     }
@@ -51,7 +46,7 @@ class AIChatRepositoryImpl (
             stack = stack,
             text = question,
             from = AIChatTextType.USER_QUESTION.name,
-            dateTime = System.currentTimeMillis()
+            datetime = System.currentTimeMillis()
         )
 
     private fun createAIAnswerEntity(answer: String, stack: String): AIChatTextEntity =
@@ -59,13 +54,14 @@ class AIChatRepositoryImpl (
             stack = stack,
             text = answer,
             from = AIChatTextType.AI_ANSWER.name,
-            dateTime = System.currentTimeMillis()
+            datetime = System.currentTimeMillis()
         )
 
     override suspend fun changeStack(stack: String) {
-        aiChatLocalDataSource.changeSelectedStack(stack)
+        aiChatLocalDataSource.changeSelectedStack(stack = stack)
     }
 
     override suspend fun getAIChatByStack(stack: String): List<AIChatText> =
-        aiChatLocalDataSource.getAIChatByStack(stack).toDomain()
+        aiChatLocalDataSource.getAIChatByStack(stack = stack).toDomain()
+
 }

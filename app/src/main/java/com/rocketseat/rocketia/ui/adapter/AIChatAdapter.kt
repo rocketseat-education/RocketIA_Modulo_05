@@ -17,11 +17,11 @@ import io.noties.markwon.Markwon
 
 private const val AI_ANSWER_CLIP_DATA_LABEL = "Resposta da IA copiada!"
 
-class AIChatAdapter : ListAdapter<AIChatText, AIChatAdapter.AIChatViewHolder>(
-    AIChatTextDiffCallback()
-) {
+class AIChatAdapter :
+    ListAdapter<AIChatText, AIChatAdapter.AIChatViewHolder>(AIChatTextDiffCallback()) {
+
     class AIChatViewHolder(val binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val clipBoardManager =
+        private val clipboardManager =
             binding.root.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
         fun bindQuestion(question: String) {
@@ -33,10 +33,10 @@ class AIChatAdapter : ListAdapter<AIChatText, AIChatAdapter.AIChatViewHolder>(
         fun bindAnswer(answer: String) {
             with(binding as ItemAiChatBalloonBinding) {
                 val markwon = Markwon.create(binding.root.context)
-                markwon.setMarkdown(tvIAAnswer, answer)
-                tvIAAnswer.setOnLongClickListener {
+                markwon.setMarkdown(tvAIAnswer, answer)
+                tvAIAnswer.setOnLongClickListener {
                     val clipData = ClipData.newPlainText(AI_ANSWER_CLIP_DATA_LABEL, answer)
-                    clipBoardManager.setPrimaryClip(clipData)
+                    clipboardManager.setPrimaryClip(clipData)
                     Toast.makeText(
                         binding.root.context,
                         AI_ANSWER_CLIP_DATA_LABEL,
@@ -53,6 +53,7 @@ class AIChatAdapter : ListAdapter<AIChatText, AIChatAdapter.AIChatViewHolder>(
         viewType: Int
     ): AIChatViewHolder {
         val inflater = LayoutInflater.from(parent.context)
+
         return when (viewType) {
             R.layout.item_user_chat_balloon -> {
                 val userChatBalloonBinding =
@@ -74,8 +75,8 @@ class AIChatAdapter : ListAdapter<AIChatText, AIChatAdapter.AIChatViewHolder>(
         position: Int
     ) {
         when (val aiChatText = getItem(position)) {
-            is AIChatText.AIAnswer -> holder.bindAnswer(aiChatText.answer)
-            is AIChatText.UserQuestion -> holder.bindQuestion(aiChatText.question)
+            is AIChatText.AIAnswer -> holder.bindAnswer(answer = aiChatText.answer)
+            is AIChatText.UserQuestion -> holder.bindQuestion(question = aiChatText.question)
         }
     }
 
@@ -87,4 +88,5 @@ class AIChatAdapter : ListAdapter<AIChatText, AIChatAdapter.AIChatViewHolder>(
             is AIChatText.UserQuestion -> R.layout.item_user_chat_balloon
         }
     }
+
 }

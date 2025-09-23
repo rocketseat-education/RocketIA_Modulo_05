@@ -1,10 +1,10 @@
 package com.rocketseat.rocketia.ui.fragment
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -16,7 +16,7 @@ import com.rocketseat.rocketia.ui.event.ChooseStackUiEvent
 import com.rocketseat.rocketia.ui.viewmodel.ChooseStackViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
+import kotlin.getValue
 
 class ChooseStackFragment : Fragment() {
 
@@ -25,8 +25,14 @@ class ChooseStackFragment : Fragment() {
     private var _binding: FragmentChooseStackBinding? = null
     private val binding get() = _binding!!
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentChooseStackBinding.inflate(inflater, container, false)
@@ -40,6 +46,7 @@ class ChooseStackFragment : Fragment() {
 
         with(binding) {
             setupStackChips()
+
             btnChooseStackConfirm.setOnClickListener {
                 findNavController().navigate(R.id.action_chooseStackFragment_to_homeFragment)
             }
@@ -52,10 +59,11 @@ class ChooseStackFragment : Fragment() {
                 launch {
                     viewModel.selectedStackChipId.collect { selectedStackChipId ->
                         selectedStackChipId?.let {
-                            binding.changeSelectedStack(selectedStackChipId)
+                            binding.changeSelectedStack(selectedStackChipId = selectedStackChipId)
                         }
                     }
                 }
+
                 launch {
                     viewModel.isConfirmedNewStack.collect { isConfirmedNewStack ->
                         binding.btnChooseStackConfirm.isEnabled = isConfirmedNewStack
@@ -86,7 +94,7 @@ class ChooseStackFragment : Fragment() {
 
             stackChip?.apply {
                 setChipStrokeColorResource(
-                    if(stackChip.id == selectedStackChipId)
+                    if (stackChip.id == selectedStackChipId)
                         R.color.white
                     else
                         R.color.border_default
@@ -96,8 +104,4 @@ class ChooseStackFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

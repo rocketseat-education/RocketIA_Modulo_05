@@ -3,8 +3,10 @@ package com.rocketseat.rocketia.ui.fragment
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -23,11 +25,11 @@ import io.mockk.verify
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.junit.After
-import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -37,30 +39,30 @@ class AIChatHistoryFragmentTest {
     private val mockViewModel: AIChatHistoryViewModel = mockk(relaxed = true)
 
     private val availableStackChipIds = listOf(
-        R.id.chpReactNative,
-        R.id.chpIA,
         R.id.chpGo,
-        R.id.chpKotlin,
+        R.id.chpPhp,
         R.id.chpCSharp,
-        R.id.chpPHP,
         R.id.chpDevOps,
         R.id.chpFullStack,
+        R.id.chpIA,
         R.id.chpJava,
-        R.id.chpPyton,
-        R.id.chpReact,
+        R.id.chpKotlin,
         R.id.chpNodeJS,
+        R.id.chpPython,
+        R.id.chpReact,
+        R.id.chpReactNative,
         R.id.chpSwift
     )
 
     private fun launchTargetFragment() =
         launchFragmentInContainer<AIChatHistoryFragment>(themeResId = R.style.Theme_RocketIA)
 
-    private val selectedStackStub  = MutableStateFlow<String?>(null)
-    private val selectedStackChipIdStub  = MutableStateFlow<Int?>(null)
+    private val selectedStackStub = MutableStateFlow<String?>(null)
+    private val selectedStackChipIdStub = MutableStateFlow<Int?>(null)
     private val aiChatHistoryBySelectedStackStub = MutableStateFlow<List<AIChatText>>(emptyList())
 
     @Before
-    fun setup() {
+    fun setUp() {
         stopKoin()
 
         every { mockViewModel.selectedStack } returns selectedStackStub.asStateFlow()
@@ -99,7 +101,7 @@ class AIChatHistoryFragmentTest {
 
     @Test
     fun given_user_select_a_stack_when_chip_is_clicked_then_trigger_an_event_and_only_check_the_selected_chip() {
-        //GIVEN
+        // GIVEN
         val clickedChipText = "Kotlin"
         val clickedChipId = R.id.chpKotlin
         val expectedEvent = AIChatHistoryEvent.SelectStack(
@@ -110,22 +112,21 @@ class AIChatHistoryFragmentTest {
         val scenario = launchTargetFragment()
         scenario.moveToState(Lifecycle.State.RESUMED)
 
-        //WHEN
-        onView(withId(clickedChipId)).perform(ViewActions.scrollTo(), click())
+        // WHEN
+        onView(withId(clickedChipId)).perform(scrollTo(), click())
 
-        //THEN
+        // THEN
         verify { mockViewModel.onEvent(event = expectedEvent) }
         onView(withId(clickedChipId)).check(matches(isChecked()))
         availableStackChipIds.forEach { stackChipId ->
-            if (stackChipId != clickedChipId) {
+            if (stackChipId != clickedChipId)
                 onView(withId(stackChipId)).check(matches(isNotChecked()))
-            }
         }
     }
 
     @Test
     fun given_user_select_a_stack_with_conversation_when_conversation_is_received_then_should_show_all_the_questions_and_answers() {
-        //GIVEN
+        // GIVEN
         val dummyQuestion = "question"
         val dummyAnswer = "answer"
         val expectedConversation = listOf(
@@ -136,15 +137,16 @@ class AIChatHistoryFragmentTest {
         val scenario = launchTargetFragment()
         scenario.moveToState(Lifecycle.State.RESUMED)
 
-        //WHEN
+        // WHEN
         scenario.onFragment { fragment ->
             fragment.requireActivity().runOnUiThread {
                 aiChatHistoryBySelectedStackStub.value = expectedConversation
             }
         }
 
-        //THEN
+        // THEN
         onView(withText(dummyQuestion)).check(matches(isDisplayed()))
         onView(withText(dummyAnswer)).check(matches(isDisplayed()))
     }
+
 }

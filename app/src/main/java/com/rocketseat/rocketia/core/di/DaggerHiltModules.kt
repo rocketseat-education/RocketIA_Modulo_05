@@ -20,6 +20,7 @@ import com.rocketseat.rocketia.domain.usecase.CheckHasSelectedStackUseCase
 import com.rocketseat.rocketia.domain.usecase.GetAIChatBySelectedStackUseCase
 import com.rocketseat.rocketia.domain.usecase.GetSelectedStackUseCase
 import com.rocketseat.rocketia.domain.usecase.SendUserQuestionUseCase
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,6 +31,22 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Qualifier
 import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class DataBindsModule {
+
+    @Binds
+    abstract fun bindAIAPIService(
+        aiApiServiceImpl: AIGeminiAPIServiceImpl
+    ) : AIAPIService
+
+    @Binds
+    abstract fun bindUserSettingsPreferences(
+        userSettingsDataStorePreferencesImpl: UserSettingsDataStorePreferencesImpl
+    ) : UserSettingsPreferences
+
+}
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -52,7 +69,7 @@ object DataModule {
     @Singleton
     fun provideRocketAIDatabase(
         @ApplicationContext context: Context
-    ): RocketAIDatabase = Room.databaseBuilder(
+    ) : RocketAIDatabase = Room.databaseBuilder(
         context,
         RocketAIDatabase::class.java,
         ROCKET_AI_DATABASE_NAME
@@ -68,6 +85,7 @@ object DataModule {
     @Singleton
     @IODispatcher
     fun provideIODispatcher() = Dispatchers.IO
+
 
     @Provides
     @Singleton
@@ -86,7 +104,7 @@ object DataModule {
     fun provideAIChatRemoteDataSource(
         @IODispatcher ioDispatcher: CoroutineDispatcher,
         aiApiService: AIAPIService
-    ): AIChatRemoteDataSource = AIChatRemoteDataSourceImpl(
+    ) : AIChatRemoteDataSource = AIChatRemoteDataSourceImpl(
         ioDispatcher = ioDispatcher,
         aiApiService = aiApiService
     )
@@ -98,13 +116,15 @@ object DataModule {
         aiChatRemoteDataSource: AIChatRemoteDataSource
     ): AIChatRepository = AIChatRepositoryImpl(
         aiChatLocalDataSource = aiChatLocalDataSource,
-        aiChatRemoteDataSource = aiChatRemoteDataSource,
+        aiChatRemoteDataSource = aiChatRemoteDataSource
     )
+
 }
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class IODispatcher
+
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -113,35 +133,26 @@ object DomainModule {
     @Provides
     fun provideChangeStackUseCase(
         aiChatRepository: AIChatRepository
-    ): ChangeStackUseCase = ChangeStackUseCase(
-        repository = aiChatRepository
-    )
+    ) : ChangeStackUseCase = ChangeStackUseCase(repository = aiChatRepository)
 
     @Provides
     fun provideCheckHasSelectedStackUseCase(
         aiChatRepository: AIChatRepository
-    ): CheckHasSelectedStackUseCase = CheckHasSelectedStackUseCase(
-        repository = aiChatRepository
-    )
+    ) : CheckHasSelectedStackUseCase = CheckHasSelectedStackUseCase(repository = aiChatRepository)
 
     @Provides
     fun provideGetAIChatBySelectedStackUseCase(
         aiChatRepository: AIChatRepository
-    ): GetAIChatBySelectedStackUseCase = GetAIChatBySelectedStackUseCase(
-        repository = aiChatRepository
-    )
+    ) : GetAIChatBySelectedStackUseCase = GetAIChatBySelectedStackUseCase(repository = aiChatRepository)
 
     @Provides
     fun provideGetSelectedStackUseCase(
         aiChatRepository: AIChatRepository
-    ): GetSelectedStackUseCase = GetSelectedStackUseCase(
-        repository = aiChatRepository
-    )
+    ) : GetSelectedStackUseCase = GetSelectedStackUseCase(repository = aiChatRepository)
 
     @Provides
     fun provideSendUserQuestionUseCase(
         aiChatRepository: AIChatRepository
-    ): SendUserQuestionUseCase = SendUserQuestionUseCase(
-        repository = aiChatRepository
-    )
+    ) : SendUserQuestionUseCase = SendUserQuestionUseCase(repository = aiChatRepository)
+
 }

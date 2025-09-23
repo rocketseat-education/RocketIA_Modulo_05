@@ -11,6 +11,7 @@ class FakeAIChatRemoteDataSourceImpl(
         else if (shouldEmitNull)
             null
         else
-            "answer for $question from stack $stack"
+            "answer for question $question from stack $stack"
     }
+
 }

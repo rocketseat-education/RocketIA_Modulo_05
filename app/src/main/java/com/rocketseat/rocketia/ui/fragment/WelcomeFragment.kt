@@ -26,10 +26,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.rocketseat.rocketia.databinding.FragmentWelcomeBinding
-import com.rocketseat.rocketia.ui.viewmodel.WelcomeViewModel
 import com.rocketseat.rocketia.R
+import com.rocketseat.rocketia.databinding.FragmentWelcomeBinding
 import com.rocketseat.rocketia.ui.event.WelcomeUiEvent
+import com.rocketseat.rocketia.ui.viewmodel.WelcomeViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,8 +40,14 @@ class WelcomeFragment : Fragment() {
     private var _binding: FragmentWelcomeBinding? = null
     private val binding get() = _binding!!
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentWelcomeBinding.inflate(inflater, container, false)
@@ -59,10 +65,13 @@ class WelcomeFragment : Fragment() {
 //            btnWelcomeStart.setOnClickListener {
 //                findNavController().navigate(R.id.action_welcomeFragment_to_chooseStackFragment)
 //            }
+
             composeViewWelcome.setContent {
-                WelcomeButton {
-                    findNavController().navigate(R.id.action_welcomeFragment_to_chooseStackFragment)
-                }
+                WelcomeButton(
+                    onClick = {
+                        findNavController().navigate(R.id.action_welcomeFragment_to_chooseStackFragment)
+                    }
+                )
             }
         }
     }
@@ -79,11 +88,11 @@ class WelcomeFragment : Fragment() {
             onClick = onClick
         ) {
             Text(
-                text = stringResource(R.string.iniciar),
+                text = stringResource(id = R.string.iniciar),
                 fontSize = TextUnit(16f, TextUnitType.Sp),
                 fontFamily = FontFamily(Font(resId = R.font.inter)),
                 fontWeight = FontWeight.Bold,
-                color = Color.Black,
+                color = Color.Black
             )
         }
     }
@@ -105,14 +114,10 @@ class WelcomeFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     @Preview
     @Composable
     private fun WelcomeButtonPreview() {
         WelcomeButton {  }
     }
+
 }

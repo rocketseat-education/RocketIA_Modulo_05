@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class ChooseStackViewModel(
     private val changeStackUseCase: ChangeStackUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _selectedStackChipId = MutableStateFlow<Int?>(null)
     val selectedStackChipId: StateFlow<Int?> = _selectedStackChipId.asStateFlow()
@@ -22,18 +22,19 @@ class ChooseStackViewModel(
 
     fun onEvent(event: ChooseStackUiEvent) {
         when (event) {
-            is ChooseStackUiEvent.SelectStack -> selectedStack(
+            is ChooseStackUiEvent.SelectStack -> selectStack(
                 selectedStackName = event.selectedStackName,
                 selectedStackChipId = event.selectedStackChipId
             )
         }
     }
 
-    private fun selectedStack(selectedStackName: String, selectedStackChipId: Int) {
+    private fun selectStack(selectedStackName: String, selectedStackChipId: Int) {
         _isConfirmedNewStack.update { true }
         viewModelScope.launch {
             changeStackUseCase(stack = selectedStackName)
         }
         _selectedStackChipId.update { selectedStackChipId }
     }
+
 }

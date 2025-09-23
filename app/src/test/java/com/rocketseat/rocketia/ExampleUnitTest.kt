@@ -32,7 +32,7 @@ import org.robolectric.shadows.ShadowToast
 class ExampleUnitTest {
 
     // fake: implementação real porém simplificada de uma interface
-    // dummy: objeto criado apenas para preencher parâmetros obrigatórios
+    // dummy: objeto criado apenas para preencher parâmetors obrigatórios
     // stub: objeto que retorna valores fixos, SEM verificar interações
     @Test
     fun example_fake_dummy_and_stub() = runTest {
@@ -40,7 +40,7 @@ class ExampleUnitTest {
         val dummyAIChatTextEntity = AIChatTextEntity(
             from = AIChatTextType.USER_QUESTION.name,
             stack = "stack",
-            dateTime = 0L,
+            datetime = 0L,
             text = "text"
         )
         val dummyAIChatTextEntityList = listOf(dummyAIChatTextEntity, dummyAIChatTextEntity, dummyAIChatTextEntity)
@@ -58,10 +58,10 @@ class ExampleUnitTest {
         assertEquals(3, result.size)
     }
 
-    // mock: objeto configurado para retornar valores fixos, possibilitar verificar interações
-    // spy: wrapper sobre um objeto real que registra suas interações
+    // mock: objeto configurado para retornar valores fixos, possibilitando verificar interaçÕes
+    // spy: wrapper sobre objeto real que registra suas interações
     @Test
-    fun example_mockk_and_spy() = runTest {
+    fun example_mock_and_spy() = runTest {
         val fakeAIChatLocalDataSourceImpl = FakeAIChatLocalDataSourceImpl()
 
         val mockAIChatRemoteDataSourceImpl = mockk<AIChatRemoteDataSource>(relaxed = true)
@@ -78,7 +78,7 @@ class ExampleUnitTest {
         coVerify(exactly = 1) { spyAIChatLocalDataSourceImpl.insertAIChatConversation(any(), any()) }
     }
 
-    // shadow: fake especifico (Roboletric) que substitui um conjunto de classes (framework Android)
+    // shadow: fake específico completo (Roboletric) que substitui um conjunto de classes (framework Android)
     @Test
     fun example_shadow() {
         val context = RuntimeEnvironment.getApplication()

@@ -7,9 +7,9 @@ import com.rocketseat.rocketia.domain.repository.AIChatRepository
 import com.rocketseat.rocketia.domain.util.formatDatetime
 import io.mockk.coEvery
 import io.mockk.mockk
-import junit.framework.Assert.assertNotNull
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNotNull
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import java.util.Locale
@@ -22,7 +22,7 @@ class GetAIChatBySelectedStackWithAdditionalInfoUseCaseTest {
     private lateinit var useCase: GetAIChatBySelectedStackWithAdditionalInfoUseCase
 
     @Before
-    fun setup() {
+    fun setUp() {
         useCase = GetAIChatBySelectedStackWithAdditionalInfoUseCase(
             aiChatRepository = aiChatRepository,
             aiAdditionalInfoRepository = aiAdditionalInfoRepository
@@ -41,13 +41,10 @@ class GetAIChatBySelectedStackWithAdditionalInfoUseCaseTest {
                     text = "answer"
                 )
             ).toDomain()
-
-            val expectedChatTextWithoutAdditionalInfo = listOf(
-                AIChatTextWithAdditionalInfo(
-                    datetime = null,
-                    chatText = dummyChatConversation[0],
-                    additionalInfo = null
-                )
+            val expectedChatTextWithoutAdditionalInfo = AIChatTextWithAdditionalInfo(
+                datetimeText = null,
+                chatText = dummyChatConversation[0],
+                additionalInfo = null
             )
 
             coEvery { aiChatRepository.getAIChatByStack(stack = any()) } returns dummyChatConversation
@@ -57,13 +54,13 @@ class GetAIChatBySelectedStackWithAdditionalInfoUseCaseTest {
             val result = useCase(stack = dummyStack)
             val firstItem = result[0]
 
-            // THEN
+            //THEN
             assertEquals(1, result.size)
-            assertEquals(expectedChatTextWithoutAdditionalInfo[0], firstItem)
+            assertEquals(expectedChatTextWithoutAdditionalInfo, firstItem)
         }
 
     @Test
-    fun `GIVEN additional info received WHEN invoked THEN should return update chat conversation`() =
+    fun `GIVEN additional info received WHEN invoked THEN should return updated chat conversation`() =
         runTest {
             // GIVEN
             val dummyStack = "Kotlin"
@@ -74,16 +71,14 @@ class GetAIChatBySelectedStackWithAdditionalInfoUseCaseTest {
                     text = "answer"
                 )
             ).toDomain()
-
             val dummyLocale = Locale.forLanguageTag("pt-BR")
             val expectedAdditionalInfo = AIAdditionalInfo(
                 datetime = 1756295438711L,
                 text = "additional info"
             )
-
             val expectedChatTextWithAdditionalInfo = AIChatTextWithAdditionalInfo(
-                datetime = expectedAdditionalInfo.datetime.formatDatetime(locale = dummyLocale),
-                chatText = dummyChatConversation.first(),
+                datetimeText = expectedAdditionalInfo.datetime.formatDatetime(locale = dummyLocale),
+                chatText = dummyChatConversation[0],
                 additionalInfo = expectedAdditionalInfo
             )
 
@@ -94,7 +89,7 @@ class GetAIChatBySelectedStackWithAdditionalInfoUseCaseTest {
             val result = useCase(stack = dummyStack)
             val firstItem = result[0]
 
-            // THEN
+            //THEN
             assertEquals(1, result.size)
             assertNotNull(expectedChatTextWithAdditionalInfo.additionalInfo)
             assertEquals(expectedChatTextWithAdditionalInfo, firstItem)
@@ -112,13 +107,10 @@ class GetAIChatBySelectedStackWithAdditionalInfoUseCaseTest {
                     text = "answer"
                 )
             ).toDomain()
-
-            val expectedChatTextWithoutAdditionalInfo = listOf(
-                AIChatTextWithAdditionalInfo(
-                    datetime = null,
-                    chatText = dummyChatConversation[0],
-                    additionalInfo = null
-                )
+            val expectedChatTextWithoutAdditionalInfo = AIChatTextWithAdditionalInfo(
+                datetimeText = null,
+                chatText = dummyChatConversation[0],
+                additionalInfo = null
             )
 
             coEvery { aiChatRepository.getAIChatByStack(stack = any()) } returns dummyChatConversation
@@ -128,8 +120,9 @@ class GetAIChatBySelectedStackWithAdditionalInfoUseCaseTest {
             val result = useCase(stack = dummyStack)
             val firstItem = result[0]
 
-            // THEN
+            //THEN
             assertEquals(1, result.size)
-            assertEquals(expectedChatTextWithoutAdditionalInfo[0], firstItem)
+            assertEquals(expectedChatTextWithoutAdditionalInfo, firstItem)
         }
+
 }

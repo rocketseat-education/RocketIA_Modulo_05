@@ -14,33 +14,28 @@ import kotlinx.coroutines.launch
 
 class AIChatViewModel(
     getSelectedStackUseCase: GetSelectedStackUseCase,
-    private val getAIChatBySelectedStackUseCase: GetAIChatBySelectedStackUseCase,
+    getAIChatBySelectedStackUseCase: GetAIChatBySelectedStackUseCase,
     private val sendUserQuestionUseCase: SendUserQuestionUseCase
-): ViewModel() {
+) : ViewModel() {
 
     val selectedStack: StateFlow<String?> = getSelectedStackUseCase().stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5_000),
-        null
-    )
+            viewModelScope, SharingStarted.WhileSubscribed(5_000), null
+        )
 
-    val aiChatBySelectStack: StateFlow<List<AIChatText>> = getAIChatBySelectedStackUseCase().stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5_000),
-        emptyList()
-    )
+    val aiChatBySelectedStack: StateFlow<List<AIChatText>>  = getAIChatBySelectedStackUseCase().stateIn(
+            viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList()
+        )
 
     fun onEvent(event: AIChatEvent) {
-        when(event) {
-            is AIChatEvent.SendUserQuestionToAI -> {
-                sendUserQuestionToAI(question = event.question)
-            }
+        when (event) {
+            is AIChatEvent.SendUserQuestionToAI -> sendUserQuestionToAI(question = event.question)
         }
     }
 
     private fun sendUserQuestionToAI(question: String) {
         viewModelScope.launch {
-            sendUserQuestionUseCase.invoke(question = question)
+            sendUserQuestionUseCase(question = question)
         }
     }
+
 }

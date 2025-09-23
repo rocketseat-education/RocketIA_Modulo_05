@@ -9,6 +9,6 @@ data class AIChatTextEntity(
     val id: Int = 0,
     val from: String,
     val stack: String,
-    val dateTime: Long,
+    val datetime: Long,
     val text: String
 )

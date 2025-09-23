@@ -34,11 +34,7 @@ val dataModule = module {
     single<CoroutineDispatcher>(named("IO")) { Dispatchers.IO }
 
     single<AIAPIService> { AIGeminiAPIServiceImpl() }
-    single<UserSettingsPreferences> {
-        UserSettingsDataStorePreferencesImpl(
-            context = androidApplication()
-        )
-    }
+    single<UserSettingsPreferences> { UserSettingsDataStorePreferencesImpl(context = androidApplication()) }
     single<RocketAIDatabase> {
         Room.databaseBuilder(
             androidApplication(),
@@ -71,11 +67,11 @@ val dataModule = module {
 }
 
 val domainModule = module {
-    factory { ChangeStackUseCase(repository = get()) }
-    factory { CheckHasSelectedStackUseCase(repository = get()) }
-    factory { GetAIChatBySelectedStackUseCase(repository = get()) }
-    factory { GetSelectedStackUseCase(repository = get()) }
-    factory { SendUserQuestionUseCase(repository = get()) }
+    factory { ChangeStackUseCase(repository = get<AIChatRepository>()) }
+    factory { CheckHasSelectedStackUseCase(repository = get<AIChatRepository>()) }
+    factory { GetAIChatBySelectedStackUseCase(repository = get<AIChatRepository>()) }
+    factory { GetSelectedStackUseCase(repository = get<AIChatRepository>()) }
+    factory { SendUserQuestionUseCase(repository = get<AIChatRepository>()) }
 }
 
 val uiModule = module {

@@ -1,25 +1,22 @@
 package com.rocketseat.rocketia.ui.fragment
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.chip.Chip
 import com.rocketseat.rocketia.R
-import com.rocketseat.rocketia.databinding.FragmentAiChatBinding
 import com.rocketseat.rocketia.databinding.FragmentAiChatHistoryBinding
-import com.rocketseat.rocketia.databinding.FragmentChooseStackBinding
 import com.rocketseat.rocketia.ui.adapter.AIChatAdapter
 import com.rocketseat.rocketia.ui.event.AIChatHistoryEvent
-import com.rocketseat.rocketia.ui.event.ChooseStackUiEvent
 import com.rocketseat.rocketia.ui.viewmodel.AIChatHistoryViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.getValue
 
 class AIChatHistoryFragment : Fragment() {
 
@@ -28,8 +25,14 @@ class AIChatHistoryFragment : Fragment() {
     private var _binding: FragmentAiChatHistoryBinding? = null
     private val binding get() = _binding!!
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAiChatHistoryBinding.inflate(inflater, container, false)
@@ -54,7 +57,7 @@ class AIChatHistoryFragment : Fragment() {
                 launch {
                     viewModel.selectedStack.collect { selectedStack ->
                         selectedStack?.let {
-                            val selectedStackChipId = binding.getStackChipId(selectedStack)
+                            val selectedStackChipId = binding.getStackChipId(stackName = selectedStack)
                             selectedStackChipId?.let {
                                 viewModel.onEvent(
                                     AIChatHistoryEvent.SelectStack(
@@ -70,19 +73,21 @@ class AIChatHistoryFragment : Fragment() {
                 launch {
                     viewModel.selectedStackChipId.collect { selectedStackChipId ->
                         selectedStackChipId?.let {
-                            binding.changeSelectedStack(selectedStackChipId)
+                            binding.changeSelectedStack(selectedStackChipId = selectedStackChipId)
                         }
                     }
                 }
-                launch {
-                    viewModel.aiChatHistoryBySelectedStack.collect { aiChatHistoryBySelectedStack ->
-                        val aiChatAdapter = binding.rvHistoryAIChat.adapter as? AIChatAdapter
-                        aiChatAdapter?.apply {
-                            submitList(aiChatHistoryBySelectedStack)
 
-                            binding.rvHistoryAIChat.smoothScrollToPosition(0)
+                launch {
+                    viewModel.aiChatHistoryBySelectedStack
+                        .collect { aiChatBySelectedStack ->
+                            val aiChatAdapter = binding.rvHistoryAIChat.adapter as? AIChatAdapter
+                            aiChatAdapter?.apply {
+                                submitList(aiChatBySelectedStack)
+
+                                binding.rvHistoryAIChat.smoothScrollToPosition(0)
+                            }
                         }
-                    }
                 }
             }
         }
@@ -94,7 +99,6 @@ class AIChatHistoryFragment : Fragment() {
 
             stackChip.text == stackName
         }
-
 
     private fun FragmentAiChatHistoryBinding.setupStackChips() {
         flwFilterStackOptions.referencedIds.forEach { stackChipId ->
@@ -117,7 +121,7 @@ class AIChatHistoryFragment : Fragment() {
 
             stackChip?.apply {
                 setChipStrokeColorResource(
-                    if(stackChip.id == selectedStackChipId)
+                    if (stackChip.id == selectedStackChipId)
                         R.color.white
                     else
                         R.color.border_default
@@ -127,8 +131,4 @@ class AIChatHistoryFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

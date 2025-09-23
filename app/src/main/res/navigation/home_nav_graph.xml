@@ -10,9 +10,11 @@
         android:name="com.rocketseat.rocketia.ui.fragment.AIChatFragment"
         android:label="fragment_ai_chat"
         tools:layout="@layout/fragment_ai_chat" />
+
     <fragment
         android:id="@+id/action_ai_chat_history"
         android:name="com.rocketseat.rocketia.ui.fragment.AIChatHistoryFragment"
         android:label="fragment_ai_chat_history"
         tools:layout="@layout/fragment_ai_chat_history" />
+
 </navigation>

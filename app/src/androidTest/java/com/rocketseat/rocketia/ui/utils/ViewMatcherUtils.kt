@@ -17,8 +17,7 @@ fun withFlowContaining(vararg expectedIds: Int): Matcher<View> {
             description?.appendText("Flow containing referencedIds: ${expectedIds.joinToString()}")
         }
 
-        // Este método pertence ao io.mockk.Matcher e deve ser removido
-        override fun match(arg: View?): Boolean { // <--- REMOVER
+        override fun match(arg: View?): Boolean {
             return arg is Flow && matchesSafely(arg)
         }
     }

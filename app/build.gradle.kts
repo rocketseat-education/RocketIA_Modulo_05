@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.paparazzi)
 }
 
 android {
@@ -55,8 +56,8 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.material3)
     implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.viewbinding)
+    debugImplementation(libs.compose.ui.tooling)
 
     implementation(libs.material)
     implementation(libs.lottie)

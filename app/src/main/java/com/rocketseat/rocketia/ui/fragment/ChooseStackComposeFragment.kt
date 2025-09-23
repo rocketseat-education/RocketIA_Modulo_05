@@ -1,12 +1,12 @@
 package com.rocketseat.rocketia.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.fragment.app.Fragment
 import com.rocketseat.rocketia.ui.compose.ChooseStackScreen
 import com.rocketseat.rocketia.ui.viewmodel.ChooseStackViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,4 +28,5 @@ class ChooseStackComposeFragment : Fragment() {
             }
         }
     }
+
 }

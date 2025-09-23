@@ -15,11 +15,7 @@ class AIGeminiAPIServiceImpl : AIAPIService {
     override suspend fun sendPrompt(stack: String, question: String): String? =
         try {
             val customPrompt = generatePrompt(stack, question)
-
-            val response = generativeModel.generateContent(
-                prompt = customPrompt
-            )
-
+            val response = generativeModel.generateContent(prompt = customPrompt)
             response.text
         } catch (_: Exception) {
             null
@@ -43,4 +39,5 @@ class AIGeminiAPIServiceImpl : AIAPIService {
             Forneça uma resposta detalhada, didática, precisa e prática para ajudar o desenvolvedor 
             a resolver sua dúvida de forma eficiente.
         """.trimIndent()
+
 }

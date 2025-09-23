@@ -21,7 +21,7 @@ class AIChatRepositoryImplTest {
     private lateinit var localDataSource: AIChatLocalDataSource
     private lateinit var remoteDataSource: AIChatRemoteDataSource
 
-    fun setup(
+    fun setUp(
         spyLocal: Boolean = false,
         spyRemote: Boolean = false,
         shouldEmitAIAnswerNull: Boolean = false,
@@ -33,9 +33,9 @@ class AIChatRepositoryImplTest {
         )
 
         localDataSource =
-            if(spyLocal) spyk(FakeAIChatLocalDataSourceImpl()) else FakeAIChatLocalDataSourceImpl()
+            if (spyLocal) spyk(FakeAIChatLocalDataSourceImpl()) else FakeAIChatLocalDataSourceImpl()
         remoteDataSource =
-            if(spyRemote) spyk(fakeRemoteDataSourceImplInstance) else fakeRemoteDataSourceImplInstance
+            if (spyRemote) spyk(fakeRemoteDataSourceImplInstance) else fakeRemoteDataSourceImplInstance
 
         repository = AIChatRepositoryImpl(
             aiChatLocalDataSource = localDataSource,
@@ -44,16 +44,15 @@ class AIChatRepositoryImplTest {
     }
 
     @Test
-    fun `GIVEN AI remote answer is null WHEN send user THEN should not insert chat conversation`() =
+    fun `GIVEN AI remote answer is null WHEN send user question THEN should not insert chat conversation`() =
         runTest {
-            setup(spyLocal = true, shouldEmitAIAnswerNull = true)
+            setUp(spyLocal = true, shouldEmitAIAnswerNull = true)
 
-            //GIVEN (dado que...)
+            // GIVEN (dado que...)
             val dummyQuestion = "question"
 
-
-            //WHEN (quando...)
-            repository.sendUserQuestion(dummyQuestion)
+            // WHEN (quando...)
+            repository.sendUserQuestion(question = dummyQuestion)
             // fakeRemoteDataSource returns null for ai answer
 
             // THEN (então...)
@@ -65,34 +64,34 @@ class AIChatRepositoryImplTest {
         }
 
     @Test
-    fun `GIVEN AI remote answer is not null WHEN send user THEN should not insert chat conversation`()  =
+    fun `GIVEN AI remote answer is not null WHEN send user question THEN should insert chat conversation`() =
         runTest {
-            setup(spyLocal = true)
+            setUp(spyLocal = true)
 
-            //GIVEN (dado que...)
+            // GIVEN (dado que...)
             val dummyQuestion = "question"
 
-            //WHEN (quando...)
-            repository.sendUserQuestion(dummyQuestion)
+            // WHEN (quando...)
+            repository.sendUserQuestion(question = dummyQuestion)
             // fakeRemoteDataSource returns not null for ai answer
 
             // THEN (então...)
             coVerify(exactly = 1) { localDataSource.insertAIChatConversation(any(), any()) }
             repository.aiChatBySelectedStack.test {
                 val result = awaitItem()
-                assertEquals(result.size, 2)
+                assertEquals(2, result.size)
             }
         }
 
     @Test
     fun `GIVEN change stack WHEN executed THEN should change selected stack`() = runTest {
-        setup()
+        setUp()
 
-        //GIVEN (dado que...)
+        // GIVEN (dado que...)
         val dummyStack = "Kotlin"
 
-        //WHEN (quando...)
-        repository.changeStack(dummyStack)
+        // WHEN (quando...)
+        repository.changeStack(stack = dummyStack)
 
         // THEN (então...)
         repository.selectedStack.test {
@@ -104,9 +103,9 @@ class AIChatRepositoryImplTest {
     @Test
     fun `GIVEN get chat conversation by stack WHEN is not empty THEN should return chat conversation by stack`() =
         runTest {
-            setup()
+            setUp()
 
-            //GIVEN (dado que...)
+            // GIVEN (dado que...)
             val dummyStack = "Kotlin"
             val dummyChatConversation = listOf(
                 createAIChatTextEntityStub(
@@ -120,24 +119,23 @@ class AIChatRepositoryImplTest {
                     text = "answer"
                 )
             )
-
             localDataSource.insertAIChatConversation(
                 question = dummyChatConversation[0],
                 answer = dummyChatConversation[1]
             )
 
-            //WHEN (quando...)
-            val result = repository.getAIChatByStack(dummyStack)
+            // WHEN (quando...)
+            val result = repository.getAIChatByStack(stack = dummyStack)
 
             // THEN (então...)
             assertEquals(2, result.size)
         }
 
     @Test
-    fun `GIVEN get chat conversation by stack WHEN is empty THEN should return empty chat conversation `() = runTest {
-        setup()
+    fun `GIVEN get chat conversation by stack WHEN is empty THEN should return empty chat conversation`() = runTest {
+        setUp()
 
-        //GIVEN (dado que...)
+        // GIVEN (dado que...)
         val dummyStack = "Swift"
         val dummyChatConversation = listOf(
             createAIChatTextEntityStub(
@@ -151,15 +149,16 @@ class AIChatRepositoryImplTest {
                 text = "answer"
             )
         )
-
         localDataSource.insertAIChatConversation(
             question = dummyChatConversation[0],
             answer = dummyChatConversation[1]
         )
 
-        //WHEN (quando...)
-        val result = repository.getAIChatByStack(dummyStack)
+        // WHEN (quando...)
+        val result = repository.getAIChatByStack(stack = dummyStack)
+
         // THEN (então...)
         assertEquals(0, result.size)
     }
+
 }

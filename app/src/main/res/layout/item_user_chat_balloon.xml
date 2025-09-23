@@ -9,4 +9,4 @@
     android:background="@drawable/bg_user_chat_balloon"
     android:padding="@dimen/md_16dp"
     android:textColor="@color/text_body"
-    tools:text="O que é a classe Context?" />
+    tools:text="@string/o_que_e_a_classe_context" />

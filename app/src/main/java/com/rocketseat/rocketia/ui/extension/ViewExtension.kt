@@ -5,11 +5,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 
 fun View.gone() {
-    if(this.isVisible) this.visibility = View.GONE
+    if (this.isVisible) this.visibility = View.GONE
 }
 
 fun View.visible() {
-    if(!this.isVisible) this.visibility = View.VISIBLE
+    if (!this.isVisible) this.visibility = View.VISIBLE
 }
 
 fun View.hideKeyboard() {

@@ -5,13 +5,15 @@ import androidx.lifecycle.viewModelScope
 import com.rocketseat.rocketia.domain.usecase.CheckHasSelectedStackUseCase
 import com.rocketseat.rocketia.ui.event.WelcomeUiEvent
 import com.rocketseat.rocketia.ui.state.WelcomeUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WelcomeViewModel (
+class WelcomeViewModel(
     private val checkHasSelectedStackUseCase: CheckHasSelectedStackUseCase
 ): ViewModel() {
 
@@ -28,10 +30,9 @@ class WelcomeViewModel (
         viewModelScope.launch {
             val hasSelectedStack = checkHasSelectedStackUseCase.invoke()
             _uiState.update { currentUiState ->
-                currentUiState.copy(
-                    hasSelectedStack = hasSelectedStack
-                )
+                currentUiState.copy(hasSelectedStack = hasSelectedStack)
             }
         }
     }
+
 }

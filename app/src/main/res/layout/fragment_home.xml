@@ -26,9 +26,9 @@
         app:backgroundTint="@color/background_elevated"
         app:itemTextAppearanceActive="@style/TextLarge"
         app:itemTextAppearanceInactive="@style/TextLarge"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:itemIconTint="@color/home_menu_option_state_color"
         app:itemTextColor="@color/home_menu_option_state_color"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/home_menu" />

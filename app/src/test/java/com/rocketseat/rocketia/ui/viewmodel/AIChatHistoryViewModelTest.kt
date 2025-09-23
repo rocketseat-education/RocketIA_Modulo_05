@@ -10,7 +10,7 @@ import com.rocketseat.rocketia.ui.event.AIChatHistoryEvent
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import junit.framework.Assert.assertEquals
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -19,25 +19,25 @@ import org.junit.Test
 class AIChatHistoryViewModelTest {
 
     private val getSelectedStackUseCase: GetSelectedStackUseCase = mockk()
-    private val getIAChatBySelectedStackUseCase: GetAIChatBySelectedStackUseCase = mockk()
+    private val getAIChatBySelectedStackUseCase: GetAIChatBySelectedStackUseCase = mockk()
 
     private lateinit var viewModel: AIChatHistoryViewModel
 
     private val dummyInitialStack = "Kotlin"
 
     @Before
-    fun setup() {
+    fun setUp() {
         every { getSelectedStackUseCase() } returns flowOf(dummyInitialStack)
         viewModel = AIChatHistoryViewModel(
             getSelectedStackUseCase = getSelectedStackUseCase,
-            getAIChatHistoryBySelectedStackUseCase = getIAChatBySelectedStackUseCase
+            getAIChatHistoryBySelectedStackUseCase = getAIChatBySelectedStackUseCase
         )
     }
 
     @Test
     fun `GIVEN empty history WHEN triggers SelectStack event THEN aiChatHistoryBySelectedStack and stackChipId should be updated`() =
         runTest {
-            //GIVEN
+            // GIVEN
             val dummySelectedStackName = "Java"
             val dummySelectedStackChipId = 123
             val stubAIChatHistoryBySelectedStack = listOf(
@@ -51,9 +51,9 @@ class AIChatHistoryViewModelTest {
                 )
             ).toDomain()
 
-            coEvery { getIAChatBySelectedStackUseCase(stack = dummySelectedStackName) } returns stubAIChatHistoryBySelectedStack
+            coEvery { getAIChatBySelectedStackUseCase(stack = dummySelectedStackName) } returns stubAIChatHistoryBySelectedStack
 
-            //WHEN
+            // WHEN
             viewModel.onEvent(
                 event = AIChatHistoryEvent.SelectStack(
                     selectedStackName = dummySelectedStackName,
@@ -71,4 +71,5 @@ class AIChatHistoryViewModelTest {
                 assertEquals(dummySelectedStackChipId, result)
             }
         }
+
 }
